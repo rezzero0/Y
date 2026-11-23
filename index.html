@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>آيفون y0h7n المفقود 📱</title>
-    <!-- خط عربي حديث -->
+    <title>الهاتف المفقود 📱</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
@@ -24,128 +22,42 @@
         }
 
         html, body {
-            margin: 0;
-            padding: 0;
-            background: #05070d;
-            color: #ffffff;
-            overflow: hidden;
-            height: 100dvh;
-            width: 100vw;
+            margin: 0; padding: 0; background: #05070d; color: #ffffff;
+            overflow: hidden; height: 100dvh; width: 100vw;
         }
 
-        .iphone-wrapper {
-            width: 100%;
-            height: 100dvh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .iphone-device {
-            width: 100%;
-            height: 100dvh;
-            max-width: 480px;
-            position: relative;
-            overflow: hidden;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-            user-select: none;
-        }
+        .iphone-wrapper { width: 100%; height: 100dvh; display: flex; align-items: center; justify-content: center; }
+        .iphone-device { width: 100%; height: 100dvh; max-width: 480px; position: relative; overflow: hidden; background: #000; display: flex; flex-direction: column; user-select: none; }
 
         .ios-wallpaper {
             background:
-                radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.28) 0%, transparent 45%),
-                radial-gradient(circle at 85% 26%, rgba(168, 85, 247, 0.28) 0%, transparent 48%),
-                radial-gradient(circle at 50% 80%, rgba(244, 63, 94, 0.22) 0%, transparent 52%),
-                linear-gradient(180deg, #070b14 0%, #0f172a 50%, #05070d 100%);
+                radial-gradient(circle at 15% 20%, rgba(220, 38, 38, 0.25) 0%, transparent 45%),
+                radial-gradient(circle at 85% 26%, rgba(234, 179, 8, 0.15) 0%, transparent 48%),
+                radial-gradient(circle at 50% 80%, rgba(0, 0, 0, 0.8) 0%, transparent 52%),
+                linear-gradient(180deg, #05070d 0%, #1a0b0b 50%, #000000 100%);
         }
 
-        .ios-glass {
-            background: rgba(28, 30, 38, 0.72);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-        }
+        .ios-glass { background: rgba(28, 30, 38, 0.72); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.14); }
+        .ios-glass-light { background: rgba(255, 255, 255, 0.13); backdrop-filter: blur(22px) saturate(180%); -webkit-backdrop-filter: blur(22px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.18); }
 
-        .ios-glass-light {
-            background: rgba(255, 255, 255, 0.13);
-            backdrop-filter: blur(22px) saturate(180%);
-            -webkit-backdrop-filter: blur(22px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
+        .dynamic-island { width: 116px; height: 30px; background: #000000; border-radius: 999px; transition: all 0.42s var(--ios-spring); box-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); cursor: pointer; z-index: 60; }
+        .dynamic-island.expanded { width: 340px; height: 68px; border-radius: 26px; padding: 0 14px; }
 
-        .dynamic-island {
-            width: 116px;
-            height: 30px;
-            background: #000000;
-            border-radius: 999px;
-            transition: all 0.42s var(--ios-spring);
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
-            cursor: pointer;
-            z-index: 60;
-        }
+        .ios-squircle { border-radius: 23.5%; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.3); transition: transform 0.18s var(--ios-spring); }
+        .ios-squircle:active { transform: scale(0.88); }
 
-        .dynamic-island.expanded {
-            width: 340px;
-            height: 68px;
-            border-radius: 26px;
-            padding: 0 14px;
-        }
+        .app-window { transition: transform 0.36s var(--ios-ease), opacity 0.28s ease; transform-origin: center center; }
+        .app-window.closed { transform: scale(0.88); opacity: 0; pointer-events: none; }
+        .app-window.open { transform: scale(1); opacity: 1; pointer-events: auto; }
 
-        .ios-squircle {
-            border-radius: 23.5%;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.3);
-            transition: transform 0.18s var(--ios-spring);
-        }
+        #lock-screen { transition: transform 0.48s var(--ios-ease), opacity 0.38s ease; }
+        #lock-screen.unlocked { transform: translateY(-102%); opacity: 0; pointer-events: none; }
 
-        .ios-squircle:active {
-            transform: scale(0.88);
-        }
+        @keyframes iosShake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
+        .shake { animation: iosShake 0.38s ease-in-out; }
 
-        .app-window {
-            transition: transform 0.36s var(--ios-ease), opacity 0.28s ease;
-            transform-origin: center center;
-        }
-
-        .app-window.closed {
-            transform: scale(0.88);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .app-window.open {
-            transform: scale(1);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        #lock-screen {
-            transition: transform 0.48s var(--ios-ease), opacity 0.38s ease;
-        }
-
-        #lock-screen.unlocked {
-            transform: translateY(-102%);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        @keyframes iosShake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-10px); }
-            40%, 80% { transform: translateX(10px); }
-        }
-        .shake {
-            animation: iosShake 0.38s ease-in-out;
-        }
-
-        @keyframes lowBattPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.45; }
-        }
-        .low-battery-pulse {
-            animation: lowBattPulse 1.8s infinite;
-        }
+        @keyframes lowBattPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+        .low-battery-pulse { animation: lowBattPulse 1.8s infinite; }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -156,43 +68,35 @@
 <div class="iphone-wrapper">
     <div id="iphone" class="iphone-device ios-wallpaper">
 
-        <!-- شريط الحالة + Dynamic Island -->
         <header class="relative z-50 flex items-center justify-between px-4 pt-3 pb-1 text-[12px] font-semibold tracking-tight select-none gap-2">
-            <div class="shrink-0 text-right font-bold tabular-nums" id="status-clock">22:32</div>
+            <div class="shrink-0 text-right font-bold tabular-nums" id="status-clock">23:45</div>
 
             <div id="dynamic-island" onclick="toggleIsland()" class="dynamic-island shrink-0 flex items-center justify-between px-3 overflow-hidden">
                 <div id="island-compact" class="w-full flex items-center justify-between gap-2">
-                    <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0"></span>
-                    <span class="text-[10px] text-rose-400 font-bold tabular-nums" id="island-mini-text">9%</span>
+                    <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse shrink-0"></span>
+                    <span class="text-[10px] text-red-500 font-bold tabular-nums" id="island-mini-text">8%</span>
                 </div>
                 <div id="island-expanded-content" class="hidden w-full flex items-center justify-between gap-2">
                     <div class="flex items-center gap-2 min-w-0">
-                        <div class="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-sm shrink-0">🔌</div>
+                        <div class="w-8 h-8 rounded-full bg-red-500/20 border border-red-500/40 flex items-center justify-center text-sm shrink-0">🩸</div>
                         <div class="text-right min-w-0">
-                            <p class="text-xs font-bold text-white leading-tight truncate">آيفون y0h7n (مفقود)</p>
-                            <p class="text-[10px] text-rose-300 font-semibold truncate" id="island-subtext">الباطري 9% • وضع توفير الباطري</p>
+                            <p class="text-xs font-bold text-white leading-tight truncate">هاتف إسلام (سري)</p>
+                            <p class="text-[10px] text-red-400 font-semibold truncate" id="island-subtext">البطارية 8% • تحذير: البطارية منخفضة!</p>
                         </div>
                     </div>
-                    <button onclick="event.stopPropagation(); triggerHonestEnding();" class="bg-emerald-500 text-slate-950 text-[11px] font-bold px-2.5 py-1.5 rounded-full shadow shrink-0">
+                    <button onclick="event.stopPropagation(); triggerHonestEnding();" class="bg-red-600 text-white text-[11px] font-bold px-2.5 py-1.5 rounded-full shadow shrink-0">
                         إرجاع
                     </button>
                 </div>
             </div>
 
             <div class="shrink-0 flex items-center justify-end gap-1.5" dir="ltr">
-                <svg class="w-3.5 h-3 text-white shrink-0" viewBox="0 0 18 12" fill="currentColor">
-                    <rect x="1" y="8" width="2.5" height="4" rx="0.8"/>
-                    <rect x="5" y="6" width="2.5" height="6" rx="0.8"/>
-                    <rect x="9" y="3.5" width="2.5" height="8.5" rx="0.8"/>
-                    <rect x="13" y="1" width="2.5" height="11" rx="0.8" opacity="0.35"/>
-                </svg>
-                <svg class="w-3.5 h-3 text-white shrink-0" viewBox="0 0 16 12" fill="currentColor">
-                    <path d="M8 9.6a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8zm-3.6-2.2a5.2 5.2 0 017.2 0l1.2-1.3a7 7 0 00-9.6 0l1.2 1.3zm-2.5-2.6a8.8 8.8 0 0112.2 0l1.2-1.3a10.6 10.6 0 00-14.6 0l1.2 1.3z"/>
-                </svg>
+                <svg class="w-3.5 h-3 text-white shrink-0" viewBox="0 0 18 12" fill="currentColor"><rect x="1" y="8" width="2.5" height="4" rx="0.8"/><rect x="5" y="6" width="2.5" height="6" rx="0.8"/><rect x="9" y="3.5" width="2.5" height="8.5" rx="0.8"/><rect x="13" y="1" width="2.5" height="11" rx="0.8" opacity="0.35"/></svg>
+                <svg class="w-3.5 h-3 text-white shrink-0" viewBox="0 0 16 12" fill="currentColor"><path d="M8 9.6a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8zm-3.6-2.2a5.2 5.2 0 017.2 0l1.2-1.3a7 7 0 00-9.6 0l1.2 1.3zm-2.5-2.6a8.8 8.8 0 0112.2 0l1.2-1.3a10.6 10.6 0 00-14.6 0l1.2 1.3z"/></svg>
                 <div class="flex items-center gap-1 low-battery-pulse shrink-0">
                     <div class="relative w-[26px] h-[13px] rounded-[3.5px] border border-white/50 p-[1.5px] flex items-center">
-                        <div id="ios-battery-fill" class="h-full bg-rose-500 rounded-[1.5px] transition-all duration-500" style="width: 22%;"></div>
-                        <span id="ios-battery-num" class="absolute inset-0 flex items-center justify-center text-[8.5px] font-extrabold text-white tabular-nums drop-shadow">9</span>
+                        <div id="ios-battery-fill" class="h-full bg-red-600 rounded-[1.5px] transition-all duration-500" style="width: 18%;"></div>
+                        <span id="ios-battery-num" class="absolute inset-0 flex items-center justify-center text-[8.5px] font-extrabold text-white tabular-nums drop-shadow">8</span>
                     </div>
                     <div class="w-[1.5px] h-[4px] bg-white/50 rounded-r-sm"></div>
                 </div>
@@ -203,60 +107,49 @@
         <section id="lock-screen" class="absolute inset-0 z-40 ios-wallpaper flex flex-col justify-between px-5 pt-14 pb-4">
             <div class="text-center mt-1">
                 <div class="inline-flex items-center justify-center mb-1 text-white/80">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v2H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-1V6a4 4 0 00-4-4zm2 6V6a2 2 0 10-4 0v2h4z" clip-rule="evenodd"/>
-                    </svg>
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v2H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-1V6a4 4 0 00-4-4zm2 6V6a2 2 0 10-4 0v2h4z" clip-rule="evenodd"/></svg>
                 </div>
                 <p class="text-[14px] font-medium text-white/85" id="lock-date">الجمعة، 20 نوفمبر</p>
-                <h1 class="text-[74px] font-bold leading-none tracking-tight text-white/95 mt-0.5" id="lock-time">22:32</h1>
+                <h1 class="text-[74px] font-bold leading-none tracking-tight text-white/95 mt-0.5" id="lock-time">23:45</h1>
             </div>
 
-            <div class="ios-glass rounded-[22px] p-3.5 border-r-4 border-r-amber-400 shadow-xl my-1">
+            <div class="ios-glass rounded-[22px] p-3.5 border-r-4 border-r-red-600 shadow-xl my-1">
                 <div class="flex items-center justify-between mb-1">
-                    <span class="text-[11px] font-bold text-amber-300 flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                    <span class="text-[11px] font-bold text-red-400 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
                         وضع الفقدان (Lost Phone)
                     </span>
-                    <span class="text-[10px] text-rose-300 font-semibold">الباطري 9%</span>
+                    <span class="text-[10px] text-red-400 font-semibold">البطارية 8%</span>
                 </div>
                 <p class="text-[13px] text-white/95 leading-snug">
-                    "هذا هاتف <strong class="text-amber-300" dir="ltr">y0h7n</strong>.. طاح في الحومة والباطري 9%، إذا لقيتو اتصل بصاحبو 🙏"
+                    "هذا هاتف <strong class="text-red-400" dir="ltr">إسلام</strong>. فُقد في الحي والبطارية على وشك النفاد. يرجى إعادته لمكافأة مجزية! 🕶️"
                 </p>
             </div>
 
             <div class="space-y-2 overflow-y-auto no-scrollbar max-h-[42%] py-1">
-                <div onclick="unlockAndLaunch('whatsapp', 'tarek')" class="ios-glass-light rounded-[20px] p-3 flex items-start gap-3 cursor-pointer active:scale-[0.98] transition">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-b from-[#25D366] to-[#128C7E] flex items-center justify-center shrink-0 shadow">
+                <!-- إشعار منصف -->
+                <div onclick="unlockAndLaunch('whatsapp', 'munsif')" class="ios-glass-light rounded-[20px] p-3 flex items-start gap-3 cursor-pointer active:scale-[0.98] transition">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-b from-gray-800 to-black flex items-center justify-center shrink-0 shadow">
                         <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
                     </div>
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center justify-between">
-                            <span class="text-[13px] font-bold text-white">طارق (صاحبي)</span>
+                            <span class="text-[13px] font-bold text-white">منصف</span>
                             <span class="text-[11px] text-white/60">الآن</span>
                         </div>
-                        <p class="text-[12px] text-white/90 leading-snug mt-0.5">يا خو وين راك؟ الكليون راهو في الحانوت يسقسي على واش صار في جهازه 😂</p>
+                        <p class="text-[12px] text-white/90 leading-snug mt-0.5">يا باترون لاريفاج تع الشيكولا راهو فل لبور تع وهران. لبوليس راهو يحوس.</p>
                     </div>
                 </div>
 
-                <div onclick="unlockAndLaunch('whatsapp', 'kaddour')" class="ios-glass-light rounded-[20px] p-3 flex items-start gap-3 cursor-pointer active:scale-[0.98] transition">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-b from-amber-500 to-orange-600 flex items-center justify-center shrink-0 shadow text-sm font-bold">📺</div>
+                <!-- إشعار البومة -->
+                <div onclick="unlockAndLaunch('whatsapp', 'bouma')" class="ios-glass-light rounded-[20px] p-3 flex items-start gap-3 cursor-pointer active:scale-[0.98] transition">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-b from-slate-700 to-slate-900 flex items-center justify-center shrink-0 shadow text-sm font-bold">🦉</div>
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center justify-between">
-                            <span class="text-[13px] font-bold text-white">كليون: عمي قدور</span>
-                            <span class="text-[11px] text-white/60">منذ 3د</span>
+                            <span class="text-[13px] font-bold text-white">البومة</span>
+                            <span class="text-[11px] text-white/60">منذ 3 دقائق</span>
                         </div>
-                        <p class="text-[12px] text-white/90 leading-snug mt-0.5">ولدي y0h7n نقصلي في السومة وندعيلك بالخير، التلفزيون راهو غير يطفي وحدو!</p>
-                    </div>
-                </div>
-
-                <div onclick="unlockAndLaunch('whatsapp', 'mom')" class="ios-glass-light rounded-[20px] p-3 flex items-start gap-3 cursor-pointer active:scale-[0.98] transition">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-b from-rose-500 to-pink-600 flex items-center justify-center shrink-0 shadow text-sm font-bold">❤️</div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[13px] font-bold text-white">الوالدة</span>
-                            <span class="text-[11px] text-white/60">22:15</span>
-                        </div>
-                        <p class="text-[12px] text-white/90 leading-snug mt-0.5">وقتاش تجي للدار؟ وما تنساش تجيب معاك زوج خبزات كي تجي!</p>
+                        <p class="text-[12px] text-white/90 leading-snug mt-0.5">لحساب لقديم تع لاريفاج تع لي فاتت راهو يسخن يا تخلص دوك يا ندير لابال تاعي.</p>
                     </div>
                 </div>
             </div>
@@ -264,20 +157,13 @@
             <div class="pt-1">
                 <div class="flex items-center justify-between px-2 mb-3">
                     <button id="flashlight-btn" onclick="toggleFlashlight()" class="w-11 h-11 rounded-full ios-glass-light flex items-center justify-center text-white transition active:scale-90">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 2h6l1 5-2 3v11a1 1 0 01-1 1h-2a1 1 0 01-1-1V10L8 7l1-5z"/>
-                        </svg>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 2h6l1 5-2 3v11a1 1 0 01-1 1h-2a1 1 0 01-1-1V10L8 7l1-5z"/></svg>
                     </button>
-
                     <button onclick="unlockPhone()" class="px-5 py-2.5 rounded-full ios-glass-light hover:bg-white/25 text-white text-xs font-bold flex items-center gap-2 shadow-lg transition active:scale-95">
-                        <span>🔓 اضغط لفتح الهاتف</span>
+                        <span>🔓 فتح الهاتف</span>
                     </button>
-
                     <button onclick="unlockAndLaunch('photos')" class="w-11 h-11 rounded-full ios-glass-light flex items-center justify-center text-white transition active:scale-90">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h2l1.5-2h7L17 7h2a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-                            <circle cx="12" cy="13" r="3.5"/>
-                        </svg>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h2l1.5-2h7L17 7h2a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3.5"/></svg>
                     </button>
                 </div>
                 <div onclick="unlockPhone()" class="w-32 h-1.5 bg-white/80 rounded-full mx-auto cursor-pointer"></div>
@@ -292,92 +178,70 @@
                         <div class="relative w-11 h-11 flex items-center justify-center shrink-0">
                             <svg class="w-11 h-11 -rotate-90" viewBox="0 0 36 36">
                                 <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="3.2"/>
-                                <circle id="widget-batt-ring" cx="18" cy="18" r="15" fill="none" stroke="#f43f5e" stroke-width="3.2" stroke-dasharray="94.2" stroke-dashoffset="85" stroke-linecap="round"/>
+                                <circle id="widget-batt-ring" cx="18" cy="18" r="15" fill="none" stroke="#dc2626" stroke-width="3.2" stroke-dasharray="94.2" stroke-dashoffset="85" stroke-linecap="round"/>
                             </svg>
-                            <span class="absolute text-[11px] font-bold text-rose-400 tabular-nums" id="widget-batt-text">9%</span>
+                            <span class="absolute text-[11px] font-bold text-red-500 tabular-nums" id="widget-batt-text">8%</span>
                         </div>
-                        <span class="text-[10px] bg-rose-500/20 text-rose-300 px-2 py-1 rounded-full font-semibold leading-tight text-center">توفير الباطري</span>
+                        <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-1 rounded-full font-semibold leading-tight text-center">وضع توفير الطاقة</span>
                     </div>
                     <div class="space-y-0.5">
-                        <p class="text-xs font-bold text-white truncate" dir="ltr">y0h7n's Phone</p>
-                        <p class="text-[11px] text-white/65 leading-snug">تقني إلكترونيات • يطفى قريب!</p>
+                        <p class="text-xs font-bold text-white truncate" dir="ltr">Islam's Phone</p>
+                        <p class="text-[11px] text-white/65 leading-snug">هاتف شخصي • سري 🕶️</p>
                     </div>
                 </div>
 
                 <div onclick="launchApp('notes')" class="ios-glass rounded-[24px] p-3.5 flex flex-col justify-between min-h-[144px] gap-2 cursor-pointer active:scale-95 transition">
                     <div class="flex items-center justify-between gap-2">
-                        <span class="text-xs font-bold text-amber-300 truncate">ورشة الحانوت</span>
+                        <span class="text-xs font-bold text-amber-300 truncate">الملاحظات السرية</span>
                         <span class="text-[11px] font-extrabold bg-white/10 px-2 py-0.5 rounded-full text-white shrink-0 tabular-nums" id="apps-explored-badge">0/5</span>
                     </div>
                     <div class="space-y-1.5">
                         <div class="flex items-start gap-1.5 text-[11px] text-white/90 leading-snug">
                             <span class="w-2.5 h-2.5 rounded-full border border-amber-400 shrink-0 mt-1"></span>
-                            <span>تلفزيون عمي قدور (باطل 😅)</span>
+                            <span>قائمة المهام (مقفولة 🔒)</span>
                         </div>
                         <div class="flex items-start gap-1.5 text-[11px] text-white/75 leading-snug">
                             <span class="w-2.5 h-2.5 rounded-full border border-white/40 shrink-0 mt-1"></span>
-                            <span>قائمة أسرار الحانوت 🔒</span>
+                            <span>ملاحظات هامة 💰</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="grid grid-cols-3 gap-y-6 gap-x-4 my-auto py-3 px-1">
-                <!-- واتساب -->
                 <button onclick="launchApp('whatsapp')" class="flex flex-col items-center gap-1.5 relative group">
-                    <span class="absolute -top-1.5 left-3 z-10 bg-[#FF3B30] text-white text-[11px] font-bold min-w-[20px] h-[20px] px-1 rounded-full flex items-center justify-center shadow">4</span>
+                    <span class="absolute -top-1.5 left-3 z-10 bg-[#FF3B30] text-white text-[11px] font-bold min-w-[20px] h-[20px] px-1 rounded-full flex items-center justify-center shadow">3</span>
                     <div class="ios-squircle w-[64px] h-[64px] bg-gradient-to-b from-[#25D366] to-[#128C7E] flex items-center justify-center">
                         <svg class="w-9 h-9 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
                     </div>
                     <span class="text-xs font-medium text-white/95">واتساب</span>
                 </button>
 
-                <!-- الصور -->
                 <button onclick="launchApp('photos')" class="flex flex-col items-center gap-1.5 relative">
-                    <span class="absolute -top-1.5 left-3 z-10 bg-[#FF3B30] text-white text-[11px] font-bold min-w-[20px] h-[20px] px-1 rounded-full flex items-center justify-center shadow">4</span>
                     <div class="ios-squircle w-[64px] h-[64px] bg-white flex items-center justify-center">
-                        <svg class="w-11 h-11" viewBox="0 0 40 40">
-                            <rect x="17" y="4" width="6" height="12" rx="3" fill="#FF9500"/>
-                            <rect x="17" y="24" width="6" height="12" rx="3" fill="#34C759"/>
-                            <rect x="4" y="17" width="12" height="6" rx="3" fill="#AF52DE"/>
-                            <rect x="24" y="17" width="12" height="6" rx="3" fill="#FF3B30"/>
-                            <rect x="8.5" y="8.5" width="6" height="11" rx="3" transform="rotate(-45 11.5 14)" fill="#FFCC00"/>
-                            <rect x="25.5" y="20.5" width="6" height="11" rx="3" transform="rotate(-45 28.5 26)" fill="#007AFF"/>
-                            <rect x="25.5" y="8.5" width="6" height="11" rx="3" transform="rotate(45 28.5 14)" fill="#FF2D55"/>
-                            <rect x="8.5" y="20.5" width="6" height="11" rx="3" transform="rotate(45 11.5 26)" fill="#5AC8FA"/>
-                        </svg>
+                        <svg class="w-11 h-11" viewBox="0 0 40 40"><rect x="17" y="4" width="6" height="12" rx="3" fill="#FF9500"/><rect x="17" y="24" width="6" height="12" rx="3" fill="#34C759"/><rect x="4" y="17" width="12" height="6" rx="3" fill="#AF52DE"/><rect x="24" y="17" width="12" height="6" rx="3" fill="#FF3B30"/><rect x="8.5" y="8.5" width="6" height="11" rx="3" transform="rotate(-45 11.5 14)" fill="#FFCC00"/><rect x="25.5" y="20.5" width="6" height="11" rx="3" transform="rotate(-45 28.5 26)" fill="#007AFF"/><rect x="25.5" y="8.5" width="6" height="11" rx="3" transform="rotate(45 28.5 14)" fill="#FF2D55"/><rect x="8.5" y="20.5" width="6" height="11" rx="3" transform="rotate(45 11.5 26)" fill="#5AC8FA"/></svg>
                     </div>
                     <span class="text-xs font-medium text-white/95">الصور</span>
                 </button>
 
-                <!-- الملاحظات -->
                 <button onclick="launchApp('notes')" class="flex flex-col items-center gap-1.5 relative">
                     <span class="absolute -top-1.5 left-3 z-10 bg-amber-400 text-slate-950 text-[10px] font-bold w-[20px] h-[20px] rounded-full flex items-center justify-center shadow">🔒</span>
                     <div class="ios-squircle w-[64px] h-[64px] bg-white overflow-hidden flex flex-col">
                         <div class="h-4 bg-gradient-to-b from-[#FFD60A] to-[#FFCC00] border-b border-amber-300"></div>
-                        <div class="flex-1 px-2.5 py-2 space-y-1.5">
-                            <div class="h-[2.5px] bg-slate-200 w-full rounded"></div>
-                            <div class="h-[2.5px] bg-slate-200 w-4/5 rounded"></div>
-                            <div class="h-[2.5px] bg-slate-200 w-3/5 rounded"></div>
-                        </div>
+                        <div class="flex-1 px-2.5 py-2 space-y-1.5"><div class="h-[2.5px] bg-slate-200 w-full rounded"></div><div class="h-[2.5px] bg-slate-200 w-4/5 rounded"></div><div class="h-[2.5px] bg-slate-200 w-3/5 rounded"></div></div>
                     </div>
                     <span class="text-xs font-medium text-white/95">الملاحظات</span>
                 </button>
 
-                <!-- سفاري -->
                 <button onclick="launchApp('safari')" class="flex flex-col items-center gap-1.5">
                     <div class="ios-squircle w-[64px] h-[64px] bg-white flex items-center justify-center p-1.5">
                         <div class="w-full h-full rounded-full bg-gradient-to-b from-[#32ADE6] to-[#007AFF] flex items-center justify-center relative">
-                            <svg class="w-9 h-9" viewBox="0 0 32 32">
-                                <polygon points="16,4 19,16 16,14 13,16" fill="#FF3B30"/>
-                                <polygon points="16,28 19,16 16,18 13,16" fill="#FFFFFF"/>
-                            </svg>
+                            <svg class="w-9 h-9" viewBox="0 0 32 32"><polygon points="16,4 19,16 16,14 13,16" fill="#FF3B30"/><polygon points="16,28 19,16 16,18 13,16" fill="#FFFFFF"/></svg>
                         </div>
                     </div>
                     <span class="text-xs font-medium text-white/95">سفاري</span>
                 </button>
 
-                <!-- الهاتف -->
                 <button onclick="launchApp('phone')" class="flex flex-col items-center gap-1.5 relative">
                     <div class="ios-squircle w-[64px] h-[64px] bg-gradient-to-b from-[#34C759] to-[#28CD41] flex items-center justify-center">
                         <svg class="w-9 h-9 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
@@ -385,420 +249,221 @@
                     <span class="text-xs font-medium text-white/95">الهاتف</span>
                 </button>
 
-                <!-- الملفات / النتيجة -->
                 <button onclick="launchApp('files')" class="flex flex-col items-center gap-1.5">
                     <div class="ios-squircle w-[64px] h-[64px] bg-white flex items-center justify-center">
-                        <svg class="w-10 h-10" viewBox="0 0 36 36">
-                            <path d="M4 10a3 3 0 013-3h7l3 3h12a3 3 0 013 3v14a3 3 0 01-3 3H7a3 3 0 01-3-3V10z" fill="#007AFF"/>
-                            <path d="M4 13h28v14a3 3 0 01-3 3H7a3 3 0 01-3-3V13z" fill="#32ADE6"/>
-                        </svg>
+                        <svg class="w-10 h-10" viewBox="0 0 36 36"><path d="M4 10a3 3 0 013-3h7l3 3h12a3 3 0 013 3v14a3 3 0 01-3 3H7a3 3 0 01-3-3V10z" fill="#007AFF"/><path d="M4 13h28v14a3 3 0 01-3 3H7a3 3 0 01-3-3V13z" fill="#32ADE6"/></svg>
                     </div>
-                    <span class="text-xs font-medium text-white/95">الملفات / النتيجة</span>
+                    <span class="text-xs font-medium text-white/95">الملفات</span>
                 </button>
             </div>
 
-            <!-- زر إرجاع سريع -->
-            <button onclick="triggerHonestEnding()" class="w-full py-2.5 px-4 rounded-2xl ios-glass hover:bg-white/15 flex items-center justify-between text-xs transition active:scale-[0.98] mb-2">
-                <span class="text-white/90 font-medium">🤝 وجدت الهاتف وتريد إرجاعه إلى <strong class="text-amber-300" dir="ltr">y0h7n</strong>؟</span>
-                <span class="bg-emerald-500 text-slate-950 font-bold px-2.5 py-1 rounded-full text-[11px]">إرجاع</span>
+            <button onclick="triggerHonestEnding()" class="w-full py-2.5 px-4 rounded-2xl ios-glass hover:bg-white/15 flex items-center justify-between text-xs transition active:scale-[0.98] mb-2 border border-red-500/30">
+                <span class="text-white/90 font-medium">🤝 هل تريد إرجاع الهاتف إلى <strong class="text-red-400" dir="ltr">إسلام</strong>؟</span>
+                <span class="bg-red-600 text-white font-bold px-2.5 py-1 rounded-full text-[11px]">إرجاع</span>
             </button>
 
-            <!-- شريط Dock السفلي -->
             <div class="ios-glass-light rounded-[30px] p-3 flex items-center justify-around">
                 <button onclick="launchApp('phone')" class="ios-squircle w-[54px] h-[54px] bg-gradient-to-b from-[#34C759] to-[#28CD41] flex items-center justify-center">
                     <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
                 </button>
                 <button onclick="launchApp('safari')" class="ios-squircle w-[54px] h-[54px] bg-white flex items-center justify-center p-1">
-                    <div class="w-full h-full rounded-full bg-gradient-to-b from-[#32ADE6] to-[#007AFF] flex items-center justify-center">
-                        <svg class="w-7 h-7" viewBox="0 0 32 32">
-                            <polygon points="16,4 19,16 16,14 13,16" fill="#FF3B30"/>
-                            <polygon points="16,28 19,16 16,18 13,16" fill="#FFFFFF"/>
-                        </svg>
-                    </div>
+                    <div class="w-full h-full rounded-full bg-gradient-to-b from-[#32ADE6] to-[#007AFF] flex items-center justify-center"><svg class="w-7 h-7" viewBox="0 0 32 32"><polygon points="16,4 19,16 16,14 13,16" fill="#FF3B30"/><polygon points="16,28 19,16 16,18 13,16" fill="#FFFFFF"/></svg></div>
                 </button>
                 <button onclick="launchApp('whatsapp')" class="ios-squircle w-[54px] h-[54px] bg-gradient-to-b from-[#25D366] to-[#128C7E] flex items-center justify-center">
                     <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
                 </button>
                 <button onclick="launchApp('notes')" class="ios-squircle w-[54px] h-[54px] bg-white overflow-hidden flex flex-col">
                     <div class="h-3.5 bg-[#FFCC00]"></div>
-                    <div class="flex-1 px-2 py-1.5 space-y-1">
-                        <div class="h-[2px] bg-slate-200 w-full rounded"></div>
-                        <div class="h-[2px] bg-slate-200 w-3/4 rounded"></div>
-                    </div>
+                    <div class="flex-1 px-2 py-1.5 space-y-1"><div class="h-[2px] bg-slate-200 w-full rounded"></div><div class="h-[2px] bg-slate-200 w-3/4 rounded"></div></div>
                 </button>
             </div>
-
-            <div class="pt-2.5">
-                <div class="w-32 h-1.5 bg-white/70 rounded-full mx-auto"></div>
-            </div>
+            <div class="pt-2.5"><div class="w-32 h-1.5 bg-white/70 rounded-full mx-auto"></div></div>
         </main>
 
-        <!-- 3. نافذة التطبيق المفتوح -->
         <section id="app-window" class="app-window closed absolute inset-0 top-10 z-30 bg-[#0B0B0F] flex flex-col rounded-t-[28px] overflow-hidden border-t border-white/10">
             <div id="app-navbar" class="flex items-center justify-between px-4 py-3 bg-[#16161D]/95 backdrop-blur-md border-b border-white/10">
                 <button onclick="closeCurrentApp()" class="flex items-center gap-1 text-[#0A84FF] font-semibold text-[15px] active:opacity-60">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-                    </svg>
-                    <span>الرئيسية</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg><span>الرئيسية</span>
                 </button>
                 <h2 id="app-header-title" class="font-bold text-[15px] text-white">التطبيق</h2>
-                <div class="w-16 text-left">
-                    <span id="app-header-badge" class="text-[11px] text-white/50"></span>
-                </div>
+                <div class="w-16 text-left"><span id="app-header-badge" class="text-[11px] text-white/50"></span></div>
             </div>
-
             <div id="app-content" class="flex-1 overflow-y-auto no-scrollbar"></div>
-
-            <div onclick="closeCurrentApp()" class="py-2.5 bg-[#0B0B0F] cursor-pointer flex justify-center border-t border-white/5">
-                <div class="w-32 h-1.5 bg-white/75 hover:bg-white rounded-full transition"></div>
-            </div>
+            <div onclick="closeCurrentApp()" class="py-2.5 bg-[#0B0B0F] cursor-pointer flex justify-center border-t border-white/5"><div class="w-32 h-1.5 bg-white/75 hover:bg-white rounded-full transition"></div></div>
         </section>
 
-        <!-- 4. شاشة مكالمة نشطة -->
         <div id="ios-call-overlay" class="hidden absolute inset-0 z-50 bg-gradient-to-b from-slate-900 via-slate-950 to-black flex flex-col justify-between items-center py-14 px-6 text-center">
             <div class="space-y-2 mt-4">
-                <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-500 mx-auto flex items-center justify-center text-3xl font-extrabold text-white shadow-2xl" dir="ltr">
-                    y0
-                </div>
-                <h3 id="call-contact-name" class="text-2xl font-bold text-white pt-2" dir="ltr">y0h7n (صاحب الهاتف)</h3>
+                <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-red-600 to-black mx-auto flex items-center justify-center text-3xl font-extrabold text-white shadow-2xl border-2 border-red-500">🕶️</div>
+                <h3 id="call-contact-name" class="text-2xl font-bold text-white pt-2" dir="ltr">إسلام (الباترون)</h3>
                 <p id="call-contact-status" class="text-sm text-emerald-400 font-semibold">00:08 • متصل الآن</p>
             </div>
-
-            <div id="call-voice-bubble" class="ios-glass rounded-3xl p-5 max-w-xs text-xs text-white/95 leading-relaxed space-y-3 border border-emerald-400/30">
-                <p class="text-emerald-300 font-bold">🎙️ صوت y0h7n:</p>
-                <p>"ألووو! صحيت خويا العزيز، والله كنت نحوس عليه في الحانوت كامل! أرواح للحانوت نشربك قهوة ونصلحلك أي حاجة باطل 🙌"</p>
-                <button onclick="finishCallAndShowEnding()" class="w-full py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs shadow active:scale-95 transition">
-                    إنهاء المكالمة وعرض النتيجة 🏆
-                </button>
+            <div id="call-voice-bubble" class="ios-glass rounded-3xl p-5 max-w-xs text-xs text-white/95 leading-relaxed space-y-3 border border-red-500/30">
+                <p class="text-red-400 font-bold">🎙️ صوت إسلام:</p>
+                <p>"ألووو! صحيت خويا، والله غير نجيتني من قضية كبيرة! أرواح للقهوة نخلصك، وراك تحت حمايتي مدى الحياة 🙌"</p>
+                <button onclick="finishCallAndShowEnding()" class="w-full py-2.5 rounded-xl bg-red-600 text-white font-bold text-xs shadow active:scale-95 transition">إنهاء المكالمة وعرض النتيجة 🏆</button>
             </div>
-
             <button onclick="finishCallAndShowEnding()" class="w-16 h-16 rounded-full bg-[#FF3B30] hover:bg-red-600 flex items-center justify-center shadow-lg shadow-red-600/30 active:scale-90 transition">
                 <svg class="w-8 h-8 text-white rotate-[135deg]" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
             </button>
         </div>
 
-        <!-- 5. نافذة النهاية المزدوجة -->
         <div id="ending-modal" class="hidden absolute inset-0 z-50 bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-4">
             <div class="ios-glass bg-[#18181F]/95 rounded-[32px] p-6 w-full max-w-sm text-center space-y-4 border border-white/15 shadow-2xl">
                 <div class="w-10 h-1 bg-white/30 rounded-full mx-auto -mt-2 mb-1"></div>
                 <div id="ending-emoji" class="text-5xl">🕵️‍♂️</div>
                 <div>
-                    <span id="ending-badge" class="inline-block text-[11px] font-bold px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 mb-2">النهاية أ</span>
+                    <span id="ending-badge" class="inline-block text-[11px] font-bold px-3 py-1 rounded-full bg-red-400/20 text-red-300 mb-2">النهاية أ</span>
                     <h3 id="ending-title" class="text-xl font-extrabold text-white">المفتش الفضولي!</h3>
                 </div>
-                
                 <p id="ending-description" class="text-xs text-white/90 leading-relaxed bg-black/40 p-3.5 rounded-2xl border border-white/10"></p>
-
                 <div class="grid grid-cols-3 gap-2 text-center">
-                    <div class="bg-white/5 rounded-xl p-2">
-                        <p class="text-sm font-extrabold text-sky-400" id="stat-apps">0/5</p>
-                        <p class="text-[10px] text-white/60">تطبيقات</p>
-                    </div>
-                    <div class="bg-white/5 rounded-xl p-2">
-                        <p class="text-sm font-extrabold text-amber-400" id="stat-photos">0/4</p>
-                        <p class="text-[10px] text-white/60">صور</p>
-                    </div>
-                    <div class="bg-white/5 rounded-xl p-2">
-                        <p class="text-sm font-extrabold text-emerald-400" id="stat-secret">مقفل</p>
-                        <p class="text-[10px] text-white/60">السر</p>
-                    </div>
+                    <div class="bg-white/5 rounded-xl p-2"><p class="text-sm font-extrabold text-sky-400" id="stat-apps">0/5</p><p class="text-[10px] text-white/60">تطبيقات</p></div>
+                    <div class="bg-white/5 rounded-xl p-2"><p class="text-sm font-extrabold text-amber-400" id="stat-photos">0/4</p><p class="text-[10px] text-white/60">صور</p></div>
+                    <div class="bg-white/5 rounded-xl p-2"><p class="text-sm font-extrabold text-red-400" id="stat-secret">مقفل</p><p class="text-[10px] text-white/60">السر</p></div>
                 </div>
-                
                 <div class="space-y-2 pt-1">
-                    <button onclick="copyEndingResult()" class="w-full py-3.5 rounded-2xl bg-[#0A84FF] hover:bg-blue-500 text-white font-bold text-xs shadow-lg active:scale-95 transition">
-                        📋 نسخ النتيجة لمشاركتها في الستوري
-                    </button>
-                    <p id="copy-success-msg" class="hidden text-[11px] text-emerald-400 font-semibold">✅ تم النسخ بنجاح! يمكنك لصق النتيجة في ستوري إنستغرام.</p>
-                    
+                    <button onclick="copyEndingResult()" class="w-full py-3.5 rounded-2xl bg-[#0A84FF] hover:bg-blue-500 text-white font-bold text-xs shadow-lg active:scale-95 transition">📋 نسخ النتيجة للمشاركة</button>
+                    <p id="copy-success-msg" class="hidden text-[11px] text-emerald-400 font-semibold">✅ تم النسخ بنجاح!</p>
                     <div class="grid grid-cols-2 gap-2 pt-1">
-                        <button onclick="closeEndingModal()" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white/90 font-semibold text-xs transition">
-                            متابعة التصفح
-                        </button>
-                        <button onclick="resetGame()" class="py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-semibold text-xs transition">
-                            🔄 تجربة النهاية الأخرى
-                        </button>
+                        <button onclick="closeEndingModal()" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white/90 font-semibold text-xs transition">متابعة</button>
+                        <button onclick="resetGame()" class="py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-semibold text-xs transition">🔄 تجربة النهاية الأخرى</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- مدخل اختيار الصور من الجهاز -->
         <input id="local-photos-input" type="file" accept="image/*" multiple class="hidden" onchange="handleLocalPhotosUpload(event)">
-
-        <!-- إشعار علوي منبثق -->
-        <div id="ios-banner-toast" class="hidden absolute top-12 left-4 right-4 z-50 ios-glass bg-[#1C1C1E]/95 rounded-2xl p-3 flex items-center gap-3 shadow-2xl border border-white/15 transition-all">
-            <span class="text-lg" id="toast-icon">🔔</span>
-            <p class="text-xs font-semibold text-white" id="toast-message"></p>
-        </div>
-
+        <div id="ios-banner-toast" class="hidden absolute top-12 left-4 right-4 z-50 ios-glass bg-[#1C1C1E]/95 rounded-2xl p-3 flex items-center gap-3 shadow-2xl border border-white/15 transition-all"><span class="text-lg" id="toast-icon">🔔</span><p class="text-xs font-semibold text-white" id="toast-message"></p></div>
     </div>
 </div>
 
 <script>
-    // ==================== حالة اللعبة ====================
     const state = {
-        battery: 9,
-        appsOpened: new Set(),
-        photosViewed: new Set(),
-        notesUnlocked: false,
-        enteredPin: '',
-        repliedTarek: false,
-        flashlightOn: false,
-        activePhotoIndex: null,
-        currentEndingType: 'honest'
+        battery: 8, appsOpened: new Set(), photosViewed: new Set(),
+        notesUnlocked: false, enteredPin: '', flashlightOn: false,
+        activePhotoIndex: null, currentEndingType: 'honest'
     };
+    const PASSCODE = '007'; 
 
-    const PASSCODE = '0412';
-
-    // ==================== قاعدة بيانات IndexedDB لحفظ الصور بشكل دائم ====================
-    const DB_NAME = 'y0h7n_phone_photos_db_v2';
+    const DB_NAME = 'islam_mafia_photos_db';
     const STORE_NAME = 'photos_store';
-
     function openPhotosDB() {
         return new Promise((resolve, reject) => {
-            if (!('indexedDB' in window)) {
-                reject(new Error('IndexedDB غير مدعوم'));
-                return;
-            }
             const req = indexedDB.open(DB_NAME, 1);
-            req.onupgradeneeded = (e) => {
-                const db = e.target.result;
-                if (!db.objectStoreNames.contains(STORE_NAME)) {
-                    db.createObjectStore(STORE_NAME, { keyPath: 'index' });
-                }
-            };
+            req.onupgradeneeded = (e) => { e.target.result.createObjectStore(STORE_NAME, { keyPath: 'index' }); };
             req.onsuccess = () => resolve(req.result);
             req.onerror = () => reject(req.error);
         });
     }
-
     async function savePhotoToDB(index, dataUrl) {
-        try {
-            const db = await openPhotosDB();
-            const tx = db.transaction(STORE_NAME, 'readwrite');
-            tx.objectStore(STORE_NAME).put({ index, dataUrl });
-        } catch (err) {
-            console.warn('تعذر حفظ الصورة:', err);
-        }
+        const db = await openPhotosDB(); const tx = db.transaction(STORE_NAME, 'readwrite');
+        tx.objectStore(STORE_NAME).put({ index, dataUrl });
     }
-
     async function loadSavedPhotosFromDB() {
-        try {
-            const db = await openPhotosDB();
-            const tx = db.transaction(STORE_NAME, 'readonly');
-            const store = tx.objectStore(STORE_NAME);
-            const req = store.getAll();
-            req.onsuccess = () => {
-                const records = req.result || [];
-                records.forEach((rec) => {
-                    if (galleryItems[rec.index] && rec.dataUrl) {
-                        galleryItems[rec.index].src = rec.dataUrl;
-                    }
-                });
-                const appContent = document.getElementById('app-content');
-                if (document.getElementById('app-header-title').textContent === 'الصور' && appContent) {
-                    renderPhotos(appContent);
-                }
-            };
-        } catch (err) {
-            console.warn('تعذر قراءة الصور:', err);
-        }
+        const db = await openPhotosDB(); const req = db.transaction(STORE_NAME, 'readonly').objectStore(STORE_NAME).getAll();
+        req.onsuccess = () => {
+            const records = req.result || [];
+            records.forEach((rec) => { if (galleryItems[rec.index]) galleryItems[rec.index].src = rec.dataUrl; });
+            if (document.getElementById('app-header-title').textContent === 'الصور') renderPhotos(document.getElementById('app-content'));
+        };
     }
 
-    // ==================== تتبع التقدم والتنبيهات ====================
     function trackApp(appId, icon, toastText) {
         if (!state.appsOpened.has(appId)) {
             state.appsOpened.add(appId);
             document.getElementById('apps-explored-badge').textContent = `${state.appsOpened.size}/5`;
-            if (toastText) showIosToast(icon, toastText);
+            showIosToast(icon, toastText);
         }
     }
-
     function showIosToast(icon, text) {
         const banner = document.getElementById('ios-banner-toast');
-        document.getElementById('toast-icon').textContent = icon;
-        document.getElementById('toast-message').textContent = text;
-        banner.classList.remove('hidden');
-        clearTimeout(window.bannerTimer);
-        window.bannerTimer = setTimeout(() => {
-            banner.classList.add('hidden');
-        }, 2800);
+        document.getElementById('toast-icon').textContent = icon; document.getElementById('toast-message').textContent = text;
+        banner.classList.remove('hidden'); clearTimeout(window.bannerTimer);
+        window.bannerTimer = setTimeout(() => banner.classList.add('hidden'), 2800);
     }
 
-    // تناقص الباطري تدريجياً
     setInterval(() => {
         if (state.battery > 1) {
             state.battery--;
             document.getElementById('ios-battery-num').textContent = state.battery;
             document.getElementById('island-mini-text').textContent = state.battery + '%';
             document.getElementById('widget-batt-text').textContent = state.battery + '%';
-            document.getElementById('ios-battery-fill').style.width = Math.max(6, state.battery * 2.4) + '%';
-            document.getElementById('island-subtext').textContent = `الباطري ${state.battery}% • وضع توفير الباطري`;
-            if (state.battery === 4) {
-                showIosToast('🪫', 'الباطري 4%! أسرع في الاستكشاف قبل نفاد الشحن.');
-            }
+            document.getElementById('ios-battery-fill').style.width = Math.max(6, state.battery * 2.5) + '%';
+            document.getElementById('island-subtext').textContent = `البطارية ${state.battery}% • تحذير: البطارية منخفضة!`;
         }
-    }, 45000); // بطيء قليلاً لكي لا يقلق اللاعب
+    }, 45000);
 
     function toggleIsland() {
         const island = document.getElementById('dynamic-island');
-        const compact = document.getElementById('island-compact');
-        const expanded = document.getElementById('island-expanded-content');
+        const compact = document.getElementById('island-compact'); const expanded = document.getElementById('island-expanded-content');
         island.classList.toggle('expanded');
-        if (island.classList.contains('expanded')) {
-            compact.classList.add('hidden');
-            expanded.classList.remove('hidden');
-        } else {
-            expanded.classList.add('hidden');
-            compact.classList.remove('hidden');
-        }
+        if (island.classList.contains('expanded')) { compact.classList.add('hidden'); expanded.classList.remove('hidden'); }
+        else { expanded.classList.add('hidden'); compact.classList.remove('hidden'); }
     }
-
     function toggleFlashlight() {
         state.flashlightOn = !state.flashlightOn;
         const btn = document.getElementById('flashlight-btn');
-        if (state.flashlightOn) {
-            btn.classList.add('bg-white', 'text-slate-950');
-            showIosToast('🔦', 'تم تشغيل الفلاش؛ سيزداد استهلاك الباطري.');
-        } else {
-            btn.classList.remove('bg-white', 'text-slate-950');
-        }
+        if (state.flashlightOn) { btn.classList.add('bg-white', 'text-slate-950'); showIosToast('🔦', 'تم تشغيل الفلاش.'); }
+        else btn.classList.remove('bg-white', 'text-slate-950');
         if(navigator.vibrate) navigator.vibrate(50);
     }
-
-    function unlockPhone() {
-        document.getElementById('lock-screen').classList.add('unlocked');
-        if(navigator.vibrate) navigator.vibrate(30);
-    }
-
-    function unlockAndLaunch(appName, param = null) {
-        unlockPhone();
-        setTimeout(() => launchApp(appName, param), 220);
-    }
+    function unlockPhone() { document.getElementById('lock-screen').classList.add('unlocked'); if(navigator.vibrate) navigator.vibrate(30); }
+    function unlockAndLaunch(appName, param = null) { unlockPhone(); setTimeout(() => launchApp(appName, param), 220); }
 
     function launchApp(appName, param = null) {
-        const win = document.getElementById('app-window');
-        const title = document.getElementById('app-header-title');
-        const badge = document.getElementById('app-header-badge');
-        const content = document.getElementById('app-content');
-
-        badge.textContent = '';
-        win.classList.remove('closed');
-        win.classList.add('open');
-        if(navigator.vibrate) navigator.vibrate(20);
-
-        if (appName === 'whatsapp') {
-            title.textContent = 'واتساب';
-            trackApp('whatsapp', '💬', 'تم فتح واتساب الخاص بـ y0h7n.');
-            renderWhatsApp(content, param);
-        } else if (appName === 'photos') {
-            title.textContent = 'الصور';
-            trackApp('photos', '🖼️', 'تم فتح معرض الصور.');
-            renderPhotos(content);
-        } else if (appName === 'notes') {
-            title.textContent = 'الملاحظات';
-            trackApp('notes', '📝', 'تم فتح الملاحظات.');
-            renderNotes(content);
-        } else if (appName === 'safari') {
-            title.textContent = 'سفاري';
-            trackApp('safari', '🧭', 'تم فتح سجل بحث سفاري.');
-            renderSafari(content);
-        } else if (appName === 'phone') {
-            title.textContent = 'الهاتف';
-            trackApp('phone', '📞', 'تم فتح تطبيق الهاتف.');
-            renderPhone(content);
-        } else if (appName === 'files') {
-            title.textContent = 'الملفات';
-            renderFiles(content);
-        }
+        const win = document.getElementById('app-window'); const title = document.getElementById('app-header-title'); const content = document.getElementById('app-content');
+        win.classList.remove('closed'); win.classList.add('open'); if(navigator.vibrate) navigator.vibrate(20);
+        if (appName === 'whatsapp') { title.textContent = 'واتساب'; trackApp('whatsapp', '💬', 'تم فتح واتساب.'); renderWhatsApp(content, param); }
+        else if (appName === 'photos') { title.textContent = 'الصور'; trackApp('photos', '🖼️', 'تم فتح معرض الصور.'); renderPhotos(content); }
+        else if (appName === 'notes') { title.textContent = 'الملاحظات'; trackApp('notes', '📝', 'تم فتح الملاحظات.'); renderNotes(content); }
+        else if (appName === 'safari') { title.textContent = 'سفاري'; trackApp('safari', '🧭', 'تم فتح سجل البحث.'); renderSafari(content); }
+        else if (appName === 'phone') { title.textContent = 'الهاتف'; trackApp('phone', '📞', 'تم فتح تطبيق الهاتف.'); renderPhone(content); }
+        else if (appName === 'files') { title.textContent = 'الملفات'; renderFiles(content); }
     }
+    function closeCurrentApp() { const win = document.getElementById('app-window'); win.classList.remove('open'); win.classList.add('closed'); if(navigator.vibrate) navigator.vibrate(15); }
 
-    function closeCurrentApp() {
-        const win = document.getElementById('app-window');
-        win.classList.remove('open');
-        win.classList.add('closed');
-        if(navigator.vibrate) navigator.vibrate(15);
-    }
-
-    // ==================== 1. تطبيق واتساب ====================
+    // ==================== 1. واتساب (القصة بالدارجة) ====================
     const whatsappChats = {
-        tarek: {
-            name: 'طارق (صاحبي) 🛠️',
-            avatarBg: 'from-emerald-500 to-teal-600',
-            initial: 'ط',
-            status: 'متصل الآن',
-            unread: 2,
+        munsif: {
+            name: 'منصف', avatarBg: 'from-gray-800 to-black', initial: 'م', status: 'متصل الآن', unread: 2,
             messages: [
-                { from: 'them', text: 'يا خو وين راك؟ الكليون راهو في الحانوت يسقسي على واش صار في جهازه 😂', time: '22:25' },
-                { from: 'me', text: 'قولو راهي تتريبارا وراح نكملها في أقرب وقت 😉', time: '22:27' },
-                { from: 'them', text: 'ههههه صح، ويا خو ما تنساش الكود تاع الملاحظات راهو: 0412', time: '22:30' }
+                { from: 'them', text: 'يا باترون لاريفاج تع الشيكولا راهو فل لبور تع وهران. لبوليس راهو يحوس.', time: '23:25' },
+                { from: 'me', text: 'عندي بروبلام نريڤلي فيه تع لحساب لقديم نكملو و نروح للبور.', time: '23:27' },
+                { from: 'them', text: 'لباترون لاريفاج تع الشيكولا راهي لحقت و راهم يحوسو عليها لابوليس', time: '23:30' }
             ]
         },
-        kaddour: {
-            name: 'عمي قدور (كليون) 📺',
-            avatarBg: 'from-amber-500 to-orange-600',
-            initial: 'ق',
-            status: 'آخر ظهور اليوم 22:29',
-            unread: 1,
+        bouma: {
+            name: 'البومة', avatarBg: 'from-slate-700 to-slate-900', initial: 'ب', status: 'آخر ظهور 23:29', unread: 1,
             messages: [
-                { from: 'them', text: 'السلام عليكم ولدي y0h7n، التلفزيون اللي جبتو البارح راهو غير يطفي وحدو', time: '21:10' },
-                { from: 'me', text: 'وعليكم السلام عمي قدور، اللوحة راهي تتريبارا في الحانوت', time: '21:15' },
-                { from: 'them', text: 'ولدي نقصلي في السومة وندعيلك بالخير، صلحلي التلفزيون باطل وندعيلك!', time: '22:29' }
+                { from: 'them', text: 'لحساب لقديم تع لاريفاج تع لي فاتت راهو يسخن يا تخلص دوك يا ندير لابال تاعي.', time: '23:10' },
+                { from: 'me', text: 'ماتستعجلش، رانا نحولو الدراهم دكا.', time: '23:15' },
+                { from: 'them', text: 'راني نستنى، بصح الوقت راهو يخلص.', time: '23:29' }
             ]
         },
-        mom: {
-            name: 'الوالدة ❤️',
-            avatarBg: 'from-rose-500 to-pink-600',
-            initial: 'أ',
-            status: 'متصلة',
-            unread: 1,
+        nasa: {
+            name: 'جروب La nasa', avatarBg: 'from-amber-600 to-orange-700', initial: 'L', status: 'أنت، منصف، كمال...', unread: 0,
             messages: [
-                { from: 'them', text: 'وقتاش تغلق الحانوت وتجي للدار؟', time: '21:45' },
-                { from: 'me', text: 'قريب يما نكمل جهاز راهو يتريبارا برك ونجي', time: '21:50' },
-                { from: 'them', text: 'وما تنساش تجيب معاك زوج خبزات كي تجي!', time: '22:15' }
-            ]
-        },
-        hood: {
-            name: 'قروب الحومة ☕🎲',
-            avatarBg: 'from-sky-500 to-indigo-600',
-            initial: 'ح',
-            status: 'أنت، طارق، سفيان، رضا...',
-            unread: 0,
-            messages: [
-                { from: 'them', text: 'سفيان: شكون عندو كابل شارجور تايب سي يسلفو الليلة؟', time: '20:40' },
-                { from: 'me', text: 'y0h7n: عندي واحد بصح يشارجي غير كي تحط فوقو كتاب ثقيل 📚🔌', time: '20:43' },
-                { from: 'them', text: 'رضا: الكونيكسيون راهي تقطع كي العادة، أرواحو نلعبو دومينو خير!', time: '21:05' }
+                { from: 'them', text: 'كمال: الباترون، الشحنة الثانية راهي في الطريق.', time: '22:40' },
+                { from: 'me', text: 'إسلام: مليح، كل واحد يراقب بلاصتو.', time: '22:43' },
+                { from: 'them', text: 'منصف: لابوليس راهم يكثرولنا في الحومة، رانا نستناو الإشارة.', time: '22:55' }
             ]
         }
     };
 
     function renderWhatsApp(container, chatId = null) {
-        if (chatId && whatsappChats[chatId]) {
-            renderWhatsAppThread(container, chatId);
-            return;
-        }
-
+        if (chatId && whatsappChats[chatId]) { renderWhatsAppThread(container, chatId); return; }
         container.innerHTML = `
             <div class="p-4 space-y-3">
-                <div class="bg-[#1C1C1E] rounded-xl px-3.5 py-2 flex items-center gap-2 text-xs text-white/50">
-                    <span>🔍</span>
-                    <span>بحث في محادثات y0h7n...</span>
-                </div>
-
+                <div class="bg-[#1C1C1E] rounded-xl px-3.5 py-2 flex items-center gap-2 text-xs text-white/50"><span>🔍</span><span>بحث في المحادثات...</span></div>
                 <div class="divide-y divide-white/10 bg-[#1C1C1E] rounded-2xl overflow-hidden">
                     ${Object.entries(whatsappChats).map(([id, chat]) => {
                         const last = chat.messages[chat.messages.length - 1];
                         return `
                         <div onclick="renderWhatsAppThread(document.getElementById('app-content'), '${id}')" class="p-3.5 flex items-center gap-3 hover:bg-white/5 active:bg-white/10 cursor-pointer transition">
-                            <div class="w-12 h-12 rounded-full bg-gradient-to-br ${chat.avatarBg} flex items-center justify-center font-bold text-base shrink-0">
-                                ${chat.initial}
-                            </div>
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br ${chat.avatarBg} flex items-center justify-center font-bold text-base shrink-0">${chat.initial}</div>
                             <div class="flex-1 min-w-0">
-                                <div class="flex items-center justify-between">
-                                    <h4 class="font-bold text-sm text-white truncate">${chat.name}</h4>
-                                    <span class="text-[11px] ${chat.unread ? 'text-[#25D366] font-bold' : 'text-white/45'}">${last.time}</span>
-                                </div>
+                                <div class="flex items-center justify-between"><h4 class="font-bold text-sm text-white truncate">${chat.name}</h4><span class="text-[11px] ${chat.unread ? 'text-[#25D366] font-bold' : 'text-white/45'}">${last.time}</span></div>
                                 <div class="flex items-center justify-between mt-1 gap-2">
                                     <p class="text-xs text-white/65 truncate">${last.text}</p>
                                     ${chat.unread ? `<span class="bg-[#25D366] text-slate-950 text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center shrink-0">${chat.unread}</span>` : ''}
@@ -807,90 +472,65 @@
                         </div>`;
                     }).join('')}
                 </div>
-            </div>
-        `;
+            </div>`;
     }
 
     function renderWhatsAppThread(container, chatId) {
-        const chat = whatsappChats[chatId];
-        chat.unread = 0;
+        const chat = whatsappChats[chatId]; chat.unread = 0;
         container.innerHTML = `
             <div class="flex flex-col h-full">
                 <div class="px-4 py-2.5 bg-[#1C1C1E] border-b border-white/10 flex items-center justify-between">
                     <div class="flex items-center gap-2.5">
                         <div class="w-9 h-9 rounded-full bg-gradient-to-br ${chat.avatarBg} flex items-center justify-center font-bold text-sm">${chat.initial}</div>
-                        <div>
-                            <h4 class="font-bold text-xs text-white">${chat.name}</h4>
-                            <p class="text-[10px] text-emerald-400">${chat.status}</p>
-                        </div>
+                        <div><h4 class="font-bold text-xs text-white">${chat.name}</h4><p class="text-[10px] text-emerald-400">${chat.status}</p></div>
                     </div>
-                    <button onclick="renderWhatsApp(document.getElementById('app-content'))" class="text-xs text-[#0A84FF] font-semibold">الدردشات</button>
+                    <button onclick="renderWhatsApp(document.getElementById('app-content'))" class="text-xs text-[#0A84FF] font-semibold">المحادثات</button>
                 </div>
-
                 <div class="flex-1 p-4 space-y-2.5 overflow-y-auto no-scrollbar bg-[#0B141A]">
                     ${chat.messages.map(m => `
                         <div class="flex ${m.from === 'me' ? 'justify-start' : 'justify-end'}">
                             <div class="max-w-[82%] px-3.5 py-2 rounded-2xl text-xs leading-relaxed shadow ${m.from === 'me' ? 'bg-[#005C4B] text-white rounded-tr-sm' : 'bg-[#202C33] text-white/95 rounded-tl-sm'}">
-                                <p>${m.text}</p>
-                                <span class="block text-[9px] text-white/55 text-left mt-1">${m.time}</span>
+                                <p>${m.text}</p><span class="block text-[9px] text-white/55 text-left mt-1">${m.time}</span>
                             </div>
-                        </div>
-                    `).join('')}
+                        </div>`).join('')}
                 </div>
-
-                ${chatId === 'tarek' ? `
+                ${chatId === 'munsif' ? `
                     <div class="p-3 bg-[#1C1C1E] border-t border-white/10 space-y-2">
-                        <p class="text-[11px] text-amber-300 font-semibold">💬 أرسل رداً سريعاً بصفتك من عثر على الهاتف:</p>
-                        <button onclick="sendTarekReply('راني لقيت تيليفون y0h7n طايح في الحومة، قولّو يجي يديه قبل ما تخلص الباطري 9% 😂')" class="w-full text-right text-xs bg-white/10 hover:bg-emerald-500/20 px-3 py-2.5 rounded-xl transition">
-                            "راني لقيت تيليفون y0h7n طايح في الحومة، قولّو يجي يديه قبل ما تخلص الباطري 9% 😂"
-                        </button>
-                        <button onclick="sendTarekReply('شفت الكود 0412 بصح راني أمين ما نفتحش الملاحظات 😇')" class="w-full text-right text-xs bg-white/10 hover:bg-emerald-500/20 px-3 py-2.5 rounded-xl transition">
-                            "شفت الكود 0412 بصح راني أمين ما نفتحش الملاحظات 😇"
+                        <p class="text-[11px] text-amber-300 font-semibold">💬 إرسال رد سريع:</p>
+                        <button onclick="sendMunsifReply('راني لقيت التيليفون تاع الباترون، قولّو يجي يديه ولا نفضحكم كاملين 😂')" class="w-full text-right text-xs bg-white/10 hover:bg-emerald-500/20 px-3 py-2.5 rounded-xl transition">
+                            "راني لقيت التيليفون تاع الباترون، قولّو يجي يديه 😂"
                         </button>
                     </div>
                 ` : ''}
-            </div>
-        `;
+            </div>`;
     }
 
-    function sendTarekReply(msg) {
-        whatsappChats.tarek.messages.push({ from: 'me', text: msg, time: 'الآن' });
-        whatsappChats.tarek.messages.push({ from: 'them', text: 'ههههههه والله غير يديرها! خليه عندك راني نقولو يخرج للحانوت ليك درك 🙏🔥', time: 'الآن' });
-        state.repliedTarek = true;
-        showIosToast('✅', 'تم إرسال الرد إلى طارق.');
-        renderWhatsAppThread(document.getElementById('app-content'), 'tarek');
-        if(navigator.vibrate) navigator.vibrate(30);
+    function sendMunsifReply(msg) {
+        whatsappChats.munsif.messages.push({ from: 'me', text: msg, time: 'الآن' });
+        whatsappChats.munsif.messages.push({ from: 'them', text: 'ههههههه والله غير يديرها! خليه عندك راني نقولو يخرج ليك درك 🙏🔥', time: 'الآن' });
+        showIosToast('✅', 'تم إرسال الرد.');
+        renderWhatsAppThread(document.getElementById('app-content'), 'munsif');
     }
 
     // ==================== 2. معرض الصور ====================
-  const galleryItems = [
-        { src: '1.JPG', title: 'Time Out Meme 🛑', date: 'اليوم • 16:40 م', caption: 'كي يدخل كليون ويقولك صلحلي التلفزيون باطل وندعيلك', hideText: false },
-        { src: '2.JPG', title: 'استراحة الغروب ☕🌅', date: 'أمس • 17:55 م', caption: 'استراحة القهوة بعد نهار كامل في الحانوت (دجاجة تهرس القهوة)', hideText: false },
-        { src: '3.JPG', title: '', date: '', caption: '', hideText: true },
-        { src: '4.JPG', title: 'راهي عاجباتك لحالة 💻🌙', date: '20 Nov • 22:32 PM', caption: 'راهي عاجباتك لحالة', hideText: false }
-    ];
+    const galleryItems = [
+        { src: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=400&auto=format&fit=crop', title: 'الغداء المفضل 🍔', date: 'اليوم • 15:00', caption: 'غداء الباترون', hideText: false },
+        { src: 'https://images.unsplash.com/photo-1585647347384-2593bc35786b?q=80&w=400&auto=format&fit=crop', title: 'الشحنة السرية 🚢', date: 'أمس • 18:30', caption: 'شحنة (الشوكولاتة) راهي في الميناء', hideText: false },
+        { src: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=400&auto=format&fit=crop', title: '', date: '', caption: '', hideText: true },
+        { src: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=400&auto=format&fit=crop', title: 'الدراهم 💸', date: '20 Nov • 20:00', caption: 'الدراهم راهي في حساب "أوفشور"', hideText: false }
     ];
 
-    function triggerLocalPhotoPicker() {
-        document.getElementById('local-photos-input').click();
-    }
-
+    function triggerLocalPhotoPicker() { document.getElementById('local-photos-input').click(); }
     function handleLocalPhotosUpload(event) {
-        const files = Array.from(event.target.files || []);
-        if (!files.length) return;
-
+        const files = Array.from(event.target.files || []); if (!files.length) return;
         let loadedCount = 0;
         files.slice(0, 4).forEach((file, idx) => {
             const reader = new FileReader();
             reader.onload = async (e) => {
-                const base64Url = e.target.result;
-                galleryItems[idx].src = base64Url;
-                await savePhotoToDB(idx, base64Url);
+                galleryItems[idx].src = e.target.result;
+                await savePhotoToDB(idx, e.target.result);
                 loadedCount++;
-                if (loadedCount === Math.min(files.length, 4)) {
-                    showIosToast('🖼️', 'تم حفظ الصور في المعرض ولن تختفي عند إعادة الفتح.');
-                    renderPhotos(document.getElementById('app-content'));
-                }
+                if (loadedCount === Math.min(files.length, 4)) { showIosToast('🖼️', 'تم حفظ الصور.'); renderPhotos(document.getElementById('app-content')); }
             };
             reader.readAsDataURL(file);
         });
@@ -898,314 +538,176 @@
 
     function renderPhotos(container) {
         if (state.activePhotoIndex !== null) {
-            const idx = state.activePhotoIndex;
-            const item = galleryItems[idx];
-            state.photosViewed.add(idx);
-
+            const idx = state.activePhotoIndex; const item = galleryItems[idx]; state.photosViewed.add(idx);
             container.innerHTML = `
                 <div class="p-4 flex flex-col justify-between h-full">
                     <div class="flex items-center justify-between">
                         <button onclick="state.activePhotoIndex=null; renderPhotos(document.getElementById('app-content'))" class="text-xs text-[#0A84FF] font-bold">→ كل الصور</button>
-                        <button onclick="triggerLocalPhotoPicker()" class="text-[11px] bg-white/10 hover:bg-white/20 text-amber-300 px-2.5 py-1 rounded-full font-semibold">
-                            📤 تحميل صور من الجهاز
-                        </button>
+                        <button onclick="triggerLocalPhotoPicker()" class="text-[11px] bg-white/10 text-amber-300 px-2.5 py-1 rounded-full font-semibold">📤 تحميل صور</button>
                     </div>
-
                     <div class="space-y-3 my-auto">
-                        <div class="w-full h-72 rounded-3xl overflow-hidden border border-white/15 bg-black/60 flex items-center justify-center shadow-2xl">
-                            <img src="${item.src}" alt="" class="w-full h-full object-contain" onerror="this.src='https://via.placeholder.com/400x600?text=No+Image'">
-                        </div>
-                        ${item.hideText ? '' : `
-                        <div class="bg-[#1C1C1E] p-4 rounded-2xl border border-white/10 space-y-1">
-                            <div class="flex items-center justify-between">
-                                <h3 class="text-sm font-bold text-amber-300">${item.title}</h3>
-                                <span class="text-[10px] text-white/50">${item.date}</span>
-                            </div>
-                            <p class="text-xs text-white/95 leading-relaxed">${item.caption}</p>
-                        </div>`}
+                        <div class="w-full h-72 rounded-3xl overflow-hidden border border-white/15 bg-black/60 flex items-center justify-center shadow-2xl"><img src="${item.src}" class="w-full h-full object-contain" onerror="this.src='https://via.placeholder.com/400x600?text=No+Image'"></div>
+                        ${item.hideText ? '' : `<div class="bg-[#1C1C1E] p-4 rounded-2xl border border-white/10 space-y-1"><div class="flex items-center justify-between"><h3 class="text-sm font-bold text-amber-300">${item.title}</h3><span class="text-[10px] text-white/50">${item.date}</span></div><p class="text-xs text-white/95 leading-relaxed">${item.caption}</p></div>`}
                     </div>
-
-                    <p class="text-center text-[11px] text-white/45">شاهدت ${state.photosViewed.size} من 4 صور</p>
-                </div>
-            `;
+                    <p class="text-center text-[11px] text-white/45">تم مشاهدة ${state.photosViewed.size} من 4</p>
+                </div>`;
             return;
         }
-
         container.innerHTML = `
             <div class="p-3 space-y-3">
-                <div class="flex items-center justify-between px-1">
-                    <span class="text-xs font-bold text-white/85">معرض الصور (4 عناصر)</span>
-                    <button onclick="triggerLocalPhotoPicker()" class="text-[11px] bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 px-2.5 py-1 rounded-full font-bold transition">
-                        📤 تحميل الصور الأصلية
-                    </button>
-                </div>
-
+                <div class="flex items-center justify-between px-1"><span class="text-xs font-bold text-white/85">معرض الصور</span><button onclick="triggerLocalPhotoPicker()" class="text-[11px] bg-amber-400/20 text-amber-300 px-2.5 py-1 rounded-full font-bold">📤 تحميل</button></div>
                 <div class="grid grid-cols-2 gap-3">
                     ${galleryItems.map((item, idx) => `
                         <div onclick="state.activePhotoIndex=${idx}; renderPhotos(document.getElementById('app-content'))" class="rounded-2xl bg-[#1C1C1E] border border-white/15 overflow-hidden flex flex-col cursor-pointer active:scale-95 transition shadow-lg">
-                            <div class="${item.hideText ? 'h-44' : 'h-32'} w-full bg-black/50 relative flex items-center justify-center overflow-hidden">
-                                <img src="${item.src}" alt="" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x300?text=Photo'">
-                            </div>
-                            ${item.hideText ? '' : `
-                            <div class="p-2.5">
-                                <h4 class="font-bold text-[11px] text-white truncate">${item.title}</h4>
-                                <p class="text-[10px] text-white/60 mt-0.5 line-clamp-2">${item.caption}</p>
-                            </div>`}
-                        </div>
-                    `).join('')}
+                            <div class="${item.hideText ? 'h-44' : 'h-32'} w-full bg-black/50 relative flex items-center justify-center overflow-hidden"><img src="${item.src}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x300?text=Photo'"></div>
+                            ${item.hideText ? '' : `<div class="p-2.5"><h4 class="font-bold text-[11px] text-white truncate">${item.title}</h4><p class="text-[10px] text-white/60 mt-0.5 line-clamp-2">${item.caption}</p></div>`}
+                        </div>`).join('')}
                 </div>
-            </div>
-        `;
+            </div>`;
     }
 
-    // ==================== 3. تطبيق الملاحظات ====================
+    // ==================== 3. الملاحظات السرية ====================
     function renderNotes(container) {
         if (state.notesUnlocked) {
             container.innerHTML = `
                 <div class="p-4 space-y-4">
-                    <div class="bg-emerald-500/15 border border-emerald-400/35 rounded-2xl p-3 text-xs text-emerald-300 font-semibold flex items-center justify-between">
-                        <span>🔓 تم فتح الملاحظة السرية بنجاح.</span>
-                        <span dir="ltr">0412</span>
-                    </div>
-
+                    <div class="bg-red-500/15 border border-red-500/35 rounded-2xl p-3 text-xs text-red-400 font-semibold flex items-center justify-between"><span>🔓 تم فتح الملاحظات.</span><span dir="ltr">007</span></div>
                     <div class="bg-[#1C1C1E] rounded-2xl p-4 space-y-3 border border-white/10">
-                        <h3 class="text-base font-bold text-amber-300">قائمة أسرار الحانوت وخطط 2026 🤫</h3>
+                        <h3 class="text-base font-bold text-red-400">خطة الهروب 🕶️</h3>
                         <ul class="space-y-2.5 text-xs text-white/90 leading-relaxed">
-                            <li class="p-2.5 rounded-xl bg-white/5">1️⃣ الكليون اللي يقولك "أنا نفهم في التريسيتي" زيدلو في السومة لأنو خربها قبل ما يجيبها للحانوت.</li>
-                            <li class="p-2.5 rounded-xl bg-white/5">2️⃣ كابل الشارجور الأصلي ما يتسلفش حتى لطارق صاحبي.</li>
-                            <li class="p-2.5 rounded-xl bg-white/5">3️⃣ إذا طفا الجهاز قدام الكليون، قولّو "راهي تتريبارا ويدير ميزاجور" وطفّيه وشعلو.</li>
-                            <li class="p-2.5 rounded-xl bg-white/5">4️⃣ حلم 2026: نكبر الحانوت ونولي أحسن تقني في الحومة بلا ما ننسى تيليفوني!</li>
+                            <li class="p-2.5 rounded-xl bg-white/5">1️⃣ الشحنة القادمة هي "هواتف مقلدة" من دبي، رانا نبدلوها بالشوكولاتة.</li>
+                            <li class="p-2.5 rounded-xl bg-white/5">2️⃣ الكابتن "رشيد" راهو معانا، إذا حبسكم قولولو "الليلة راهي تمطر".</li>
+                            <li class="p-2.5 rounded-xl bg-white/5">3️⃣ الدراهم راهي مدفونة في دار جدي في الجبل، تحت الشجرة.</li>
                         </ul>
                     </div>
-
-                    <button onclick="triggerDetectiveEnding()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-extrabold text-xs shadow-lg active:scale-95 transition">
-                        🕵️‍♂️ عرض النتيجة النهائية
-                    </button>
-                </div>
-            `;
+                    <button onclick="triggerDetectiveEnding()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-red-500 to-black text-white font-extrabold text-xs shadow-lg active:scale-95 transition">🕵️‍♂️ عرض النتيجة النهائية</button>
+                </div>`;
             return;
         }
-
         container.innerHTML = `
             <div class="p-5 flex flex-col items-center justify-between h-full text-center">
                 <div class="space-y-1.5 mt-1">
-                    <div class="w-11 h-11 rounded-full bg-amber-400/15 text-amber-300 flex items-center justify-center mx-auto text-xl">🔒</div>
-                    <h3 class="text-base font-bold text-white">أدخل رمز الملاحظة</h3>
-                    <p id="passcode-hint-text" class="text-[11px] text-white/65">تلميح: الرمز مذكور في رسالة طارق ضمن واتساب.</p>
+                    <div class="w-11 h-11 rounded-full bg-red-500/15 text-red-400 flex items-center justify-center mx-auto text-xl">🔒</div>
+                    <h3 class="text-base font-bold text-white">أدخل رمز الدخول</h3>
+                    <p id="passcode-hint-text" class="text-[11px] text-white/65">تلميح: الرمز مذكور في المحادثات.</p>
                 </div>
-
                 <div id="pin-dots" class="flex items-center justify-center gap-4 my-2">
-                    ${[0,1,2,3].map(i => `
-                        <span class="w-3.5 h-3.5 rounded-full border border-white/60 transition-all ${state.enteredPin.length > i ? 'bg-white scale-110' : 'bg-transparent'}"></span>
-                    `).join('')}
+                    ${[0,1,2].map(i => `<span class="w-3.5 h-3.5 rounded-full border border-white/60 transition-all ${state.enteredPin.length > i ? 'bg-white scale-110' : 'bg-transparent'}"></span>`).join('')}
                 </div>
-
                 <div class="grid grid-cols-3 gap-3.5 max-w-[245px] mx-auto">
-                    ${[1,2,3,4,5,6,7,8,9].map(num => `
-                        <button onclick="pressIosKey('${num}')" class="w-16 h-16 rounded-full bg-white/12 hover:bg-white/20 active:bg-white/35 text-xl font-semibold text-white flex items-center justify-center transition">
-                            ${num}
-                        </button>
-                    `).join('')}
-                    <button onclick="document.getElementById('passcode-hint-text').innerHTML='<span class=text-amber-300>الرمز هو: 0412</span>'" class="w-16 h-16 rounded-full text-[11px] font-bold text-amber-300/85 hover:text-amber-300 flex items-center justify-center">
-                        تلميح
-                    </button>
-                    <button onclick="pressIosKey('0')" class="w-16 h-16 rounded-full bg-white/12 hover:bg-white/20 active:bg-white/35 text-xl font-semibold text-white flex items-center justify-center transition">
-                        0
-                    </button>
-                    <button onclick="deleteIosKey()" class="w-16 h-16 rounded-full text-sm font-semibold text-white/75 hover:text-white flex items-center justify-center">
-                        حذف
-                    </button>
+                    ${[1,2,3,4,5,6,7,8,9].map(num => `<button onclick="pressIosKey('${num}')" class="w-16 h-16 rounded-full bg-white/12 hover:bg-white/20 text-xl font-semibold text-white flex items-center justify-center transition">${num}</button>`).join('')}
+                    <button onclick="document.getElementById('passcode-hint-text').innerHTML='<span class=text-amber-300>الرمز هو: 007</span>'" class="w-16 h-16 rounded-full text-[11px] font-bold text-amber-300/85 flex items-center justify-center">تلميح</button>
+                    <button onclick="pressIosKey('0')" class="w-16 h-16 rounded-full bg-white/12 hover:bg-white/20 text-xl font-semibold text-white flex items-center justify-center transition">0</button>
+                    <button onclick="deleteIosKey()" class="w-16 h-16 rounded-full text-sm font-semibold text-white/75 flex items-center justify-center">حذف</button>
                 </div>
-
-                <p class="text-[11px] text-white/45 mt-1">ملاحظة محمية برمز دخول</p>
-            </div>
-        `;
+                <p class="text-[11px] text-white/45 mt-1">محمية برمز دخول</p>
+            </div>`;
     }
 
     function pressIosKey(digit) {
-        if (state.enteredPin.length >= 4) return;
-        state.enteredPin += digit;
-        if(navigator.vibrate) navigator.vibrate(10);
+        if (state.enteredPin.length >= 3) return;
+        state.enteredPin += digit; if(navigator.vibrate) navigator.vibrate(10);
         renderNotes(document.getElementById('app-content'));
-
-        if (state.enteredPin.length === 4) {
+        if (state.enteredPin.length === 3) {
             if (state.enteredPin === PASSCODE) {
-                setTimeout(() => {
-                    state.notesUnlocked = true;
-                    showIosToast('🔓', 'تم فتح الملاحظة السرية.');
-                    if(navigator.vibrate) navigator.vibrate([50, 50, 50]);
-                    renderNotes(document.getElementById('app-content'));
-                }, 200);
+                setTimeout(() => { state.notesUnlocked = true; showIosToast('🔓', 'تم فتح الملاحظات.'); renderNotes(document.getElementById('app-content')); }, 200);
             } else {
-                const dots = document.getElementById('pin-dots');
-                dots.classList.add('shake');
-                if(navigator.vibrate) navigator.vibrate(200);
-                setTimeout(() => {
-                    state.enteredPin = '';
-                    renderNotes(document.getElementById('app-content'));
-                }, 420);
+                document.getElementById('pin-dots').classList.add('shake'); if(navigator.vibrate) navigator.vibrate(200);
+                setTimeout(() => { state.enteredPin = ''; renderNotes(document.getElementById('app-content')); }, 420);
             }
         }
     }
+    function deleteIosKey() { state.enteredPin = state.enteredPin.slice(0, -1); renderNotes(document.getElementById('app-content')); }
 
-    function deleteIosKey() {
-        state.enteredPin = state.enteredPin.slice(0, -1);
-        renderNotes(document.getElementById('app-content'));
-    }
-
-    // ==================== 4. تطبيق سفاري ====================
+    // ==================== 4. سفاري ====================
     function renderSafari(container) {
         const searches = [
-            'علاش الكونيكسيون تقطع غير كي نجي نتيليشارجي حاجة',
-            'كيفاش تقنع كليون بلي التلفزيون راهو يتريبارا في الحانوت',
-            'أحسن قهوة في الحومة',
-            'أرخص كابل شارجور ما يتقطعش بعد يومين'
+            'كيفاش نتفادى نقاط المراقبة تاع الدرك على الطريق للبور', 
+            'أفضل طريقة لتبييض الدراهم في الجزائر', 
+            'تحركات البوليس في ميناء وهران الليلة', 
+            'كيفاش نتواصل مع الكابتن رشيد بلا ما يتبعونا'
         ];
-
         container.innerHTML = `
             <div class="flex flex-col justify-between h-full">
-                <div class="p-4 space-y-3 overflow-y-auto no-scrollbar">
-                    <h3 class="text-xs font-bold text-white/60">سجل بحث y0h7n في سفاري</h3>
-                    
-                    <div id="safari-answer" class="hidden bg-[#0A84FF]/15 border border-[#0A84FF]/35 rounded-2xl p-3.5 text-xs text-white leading-relaxed"></div>
-
+                <div class="p-4 space-y-3">
+                    <h3 class="text-xs font-bold text-white/60">سجل البحث</h3>
+                    <div id="safari-answer" class="hidden bg-red-500/15 border border-red-500/35 rounded-2xl p-3.5 text-xs text-white leading-relaxed"></div>
                     <div class="space-y-2">
-                        ${searches.map(t => `
-                            <div onclick="searchSafari('${t}')" class="bg-[#1C1C1E] hover:bg-white/10 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer transition">
-                                <span class="text-xs text-white/90">🔍 ${t}</span>
-                                <span class="text-white/40 text-xs">↖</span>
-                            </div>
-                        `).join('')}
+                        ${searches.map(t => `<div onclick="searchSafari('${t}')" class="bg-[#1C1C1E] hover:bg-white/10 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer transition"><span class="text-xs text-white/90">🔍 ${t}</span><span class="text-white/40 text-xs">↖</span></div>`).join('')}
                     </div>
                 </div>
-
                 <div class="p-3 bg-[#1C1C1E] border-t border-white/10">
                     <div class="flex items-center gap-2 bg-black/50 border border-white/10 rounded-xl px-3 py-2">
                         <span class="text-xs text-white/50">🔒</span>
-                        <input id="safari-input" type="text" placeholder="ابحث في سفاري..." class="flex-1 bg-transparent text-xs text-white focus:outline-none">
+                        <input id="safari-input" type="text" placeholder="ابحث..." class="flex-1 bg-transparent text-xs text-white focus:outline-none">
                         <button onclick="searchSafari(document.getElementById('safari-input').value)" class="text-xs font-bold text-[#0A84FF]">بحث</button>
                     </div>
                 </div>
-            </div>
-        `;
+            </div>`;
     }
-
     function searchSafari(query) {
-        const q = query.trim();
-        if (!q) return;
-        document.getElementById('safari-input').value = q;
-        const box = document.getElementById('safari-answer');
-        box.classList.remove('hidden');
-        box.innerHTML = `
-            <p class="font-bold text-[#32ADE6] mb-1">نتيجة بحث عن: "${q}"</p>
-            <p class="text-white/90">الباطري ${state.battery}%؛ يمكنك تفقد الملاحظات أو إرجاع الهاتف إلى y0h7n.</p>
-        `;
+        if (!query.trim()) return;
+        document.getElementById('safari-input').value = query;
+        const box = document.getElementById('safari-answer'); box.classList.remove('hidden');
+        box.innerHTML = `<p class="font-bold text-red-400 mb-1">نتيجة عن: "${query}"</p><p class="text-white/90">البوليس راهو يتبع فيك، أسرع برد الهاتف لصاحبه!</p>`;
     }
 
-    // ==================== 5. تطبيق الهاتف ====================
+    // ==================== 5. الهاتف ====================
     function renderPhone(container) {
-        const contacts = [
-            { name: 'y0h7n (صاحب الهاتف)', role: 'اتصال لإرجاع الهاتف المفقود' },
-            { name: 'طارق (صاحبي)', role: 'شريك الحانوت والقهوة' },
-            { name: 'الحانوت - إلكترونيات', role: 'الأجهزة راهي تتريبارا • تواصل مع y0h7n' }
-        ];
-
         container.innerHTML = `
             <div class="p-4 space-y-4">
-                <div class="bg-emerald-500/15 border border-emerald-400/30 rounded-2xl p-3.5 text-center space-y-2">
-                    <p class="text-xs text-white/90">اتصل بـ <strong class="text-amber-300" dir="ltr">y0h7n</strong> لإرجاع الهاتف:</p>
-                    <button onclick="startIosCall('y0h7n (صاحب الهاتف)')" class="w-full py-3.5 rounded-2xl bg-[#34C759] hover:bg-emerald-500 text-slate-950 font-extrabold text-xs shadow-lg flex items-center justify-center gap-2 active:scale-95 transition">
-                        <span>📞</span>
-                        <span>اتصال بـ y0h7n</span>
-                    </button>
+                <div class="bg-red-500/15 border border-red-500/30 rounded-2xl p-3.5 text-center space-y-2">
+                    <p class="text-xs text-white/90">اتصل بـ <strong class="text-red-400" dir="ltr">إسلام</strong> لإرجاع الهاتف:</p>
+                    <button onclick="startIosCall('إسلام (صاحب الهاتف)')" class="w-full py-3.5 rounded-2xl bg-red-600 text-white font-extrabold text-xs shadow-lg flex items-center justify-center gap-2 active:scale-95 transition">📞 اتصال</button>
                 </div>
-
-                <div class="space-y-2">
-                    <h4 class="text-xs font-bold text-white/60 px-1">جهات الاتصال</h4>
-                    <div class="bg-[#1C1C1E] rounded-2xl divide-y divide-white/10 overflow-hidden">
-                        ${contacts.map(c => `
-                            <div onclick="startIosCall('${c.name}')" class="p-3.5 flex items-center justify-between hover:bg-white/5 cursor-pointer">
-                                <div>
-                                    <p class="text-sm font-bold text-white">${c.name}</p>
-                                    <p class="text-[11px] text-white/50">${c.role}</p>
-                                </div>
-                                <span class="w-9 h-9 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm">📞</span>
-                            </div>
-                        `).join('')}
-                    </div>
+                <div class="bg-[#1C1C1E] rounded-2xl divide-y divide-white/10 overflow-hidden">
+                    ${['إسلام (صاحب الهاتف)|زعيم المافيا', 'منصف|الشريك'].map(c => {
+                        const [name, role] = c.split('|');
+                        return `<div onclick="startIosCall('${name}')" class="p-3.5 flex items-center justify-between hover:bg-white/5 cursor-pointer"><div><p class="text-sm font-bold text-white">${name}</p><p class="text-[11px] text-white/50">${role}</p></div><span class="w-9 h-9 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-sm">📞</span></div>`;
+                    }).join('')}
                 </div>
-            </div>
-        `;
+            </div>`;
     }
-
     function startIosCall(contactName) {
         document.getElementById('call-contact-name').textContent = contactName;
         document.getElementById('ios-call-overlay').classList.remove('hidden');
         if(navigator.vibrate) navigator.vibrate([200, 100, 200]);
     }
-
     function finishCallAndShowEnding() {
         document.getElementById('ios-call-overlay').classList.add('hidden');
-        if (state.notesUnlocked) {
-            triggerDetectiveEnding();
-        } else {
-            triggerHonestEnding();
-        }
+        if (state.notesUnlocked) triggerDetectiveEnding(); else triggerHonestEnding();
     }
 
-    // ==================== 6. تطبيق الملفات / النتيجة ====================
+    // ==================== 6. الملفات ====================
     function renderFiles(container) {
         container.innerHTML = `
             <div class="p-4 space-y-3">
                 <div class="bg-[#1C1C1E] rounded-2xl divide-y divide-white/10 overflow-hidden">
-                    <div onclick="launchApp('photos')" class="p-3.5 flex items-center gap-3 cursor-pointer hover:bg-white/5">
-                        <span class="text-2xl">🖼️</span>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-xs font-bold text-white">معرض_الصور</p>
-                            <p class="text-[10px] text-white/50">4 عناصر محفوظة</p>
-                        </div>
-                    </div>
-
-                    <div onclick="launchApp('notes')" class="p-3.5 flex items-center gap-3 cursor-pointer hover:bg-white/5">
-                        <span class="text-2xl">🔒</span>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-xs font-bold text-white">أسرار_الحانوت_2026.note</p>
-                            <p class="text-[10px] text-white/50">${state.notesUnlocked ? 'مفتوحة' : 'مقفولة برمز'}</p>
-                        </div>
-                    </div>
-
-                    <div onclick="state.notesUnlocked ? triggerDetectiveEnding() : triggerHonestEnding()" class="p-3.5 flex items-center gap-3 cursor-pointer bg-amber-500/15 hover:bg-amber-500/20">
-                        <span class="text-2xl">🏆</span>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-xs font-bold text-amber-300">بطاقة_النتيجة_النهائية.txt</p>
-                            <p class="text-[10px] text-amber-200/80">عرض النتيجة النهائية ونسخها للستوري</p>
-                        </div>
-                    </div>
+                    <div onclick="launchApp('photos')" class="p-3.5 flex items-center gap-3 cursor-pointer hover:bg-white/5"><span class="text-2xl">🖼️</span><div><p class="text-xs font-bold text-white">الصور</p><p class="text-[10px] text-white/50">4 عناصر</p></div></div>
+                    <div onclick="launchApp('notes')" class="p-3.5 flex items-center gap-3 cursor-pointer hover:bg-white/5"><span class="text-2xl">🔒</span><div><p class="text-xs font-bold text-white">ملاحظات_سرية.note</p><p class="text-[10px] text-white/50">${state.notesUnlocked ? 'مفتوحة' : 'مقفولة'}</p></div></div>
+                    <div onclick="state.notesUnlocked ? triggerDetectiveEnding() : triggerHonestEnding()" class="p-3.5 flex items-center gap-3 cursor-pointer bg-red-500/15 hover:bg-red-500/20"><span class="text-2xl">🏆</span><div><p class="text-xs font-bold text-red-400">بطاقة_النتيجة.txt</p><p class="text-[10px] text-red-200/80">عرض النتيجة للمشاركة</p></div></div>
                 </div>
-            </div>
-        `;
+            </div>`;
     }
 
-    // ==================== النهايتان والمشاركة ====================
+    // ==================== النهايات ====================
     function triggerDetectiveEnding() {
         state.currentEndingType = 'detective';
         document.getElementById('ending-emoji').textContent = '🕵️‍♂️🔓';
         document.getElementById('ending-badge').textContent = 'النهاية أ • المفتش الفضولي';
-        document.getElementById('ending-badge').className = 'inline-block text-[11px] font-bold px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 mb-2';
-        document.getElementById('ending-title').textContent = 'كشفت أسرار y0h7n!';
-        document.getElementById('ending-description').textContent =
-            'وصلت إلى الرمز 0412 وفتحت الملاحظة السرية واطلعت على يوميات الحانوت قبل إرجاع الهاتف 😂';
+        document.getElementById('ending-badge').className = 'inline-block text-[11px] font-bold px-3 py-1 rounded-full bg-red-400/20 text-red-300 mb-2';
+        document.getElementById('ending-title').textContent = 'كشفت أسرار الباترون!';
+        document.getElementById('ending-description').textContent = 'لقيت التيليفون السري، وفتحت الملاحظات وعرفت خطة المافيا! إسلام راح يبعثلك "الشمامين" ديالو يقلعوك راسك 😂';
         openEndingModal();
     }
 
     function triggerHonestEnding() {
         state.currentEndingType = 'honest';
         document.getElementById('ending-emoji').textContent = '🤝🏅';
-        document.getElementById('ending-badge').textContent = 'النهاية ب • ولد فاميليا وأمين';
+        document.getElementById('ending-badge').textContent = 'النهاية ب • الشخص الأمين';
         document.getElementById('ending-badge').className = 'inline-block text-[11px] font-bold px-3 py-1 rounded-full bg-emerald-400/20 text-emerald-300 mb-2';
-        document.getElementById('ending-title').textContent = 'أمين الحومة!';
-        document.getElementById('ending-description').textContent =
-            'قررت إرجاع هاتف y0h7n بأمانة دون فتح الملاحظة السرية؛ تستاهل قهوة وتصليح مجاني في الحانوت 🙌';
+        document.getElementById('ending-title').textContent = 'راجل فاميليا!';
+        document.getElementById('ending-description').textContent = 'قررت ترجع التيليفون للباترون بأمانة بلا ما تفتح الملاحظات. إسلام راح يحميك مدى الحياة ويعطيك نسبة من الشحنة 🙌';
         openEndingModal();
     }
 
@@ -1215,96 +717,47 @@
         document.getElementById('stat-secret').textContent = state.notesUnlocked ? 'مكشوف 🔓' : 'محفوظ 🔒';
         document.getElementById('copy-success-msg').classList.add('hidden');
         document.getElementById('ending-modal').classList.remove('hidden');
-        if(navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 100]);
+        if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
     }
-
-    function closeEndingModal() {
-        document.getElementById('ending-modal').classList.add('hidden');
-    }
+    function closeEndingModal() { document.getElementById('ending-modal').classList.add('hidden'); }
 
     function buildShareText() {
-        if (state.currentEndingType === 'detective') {
-            return `لقيت هاتف y0h7n طايح في الحومة 📱🕵️‍♂️ حصلت على لقب "المفتش الفضولي" وفتحت الملاحظة السرية بالكود 0412 😂 جرب تفتّش فيه أنت تاني!`;
-        }
-        return `لقيت هاتف y0h7n طايح في الحومة 📱🤝 حصلت على لقب "ولد فاميليا وأمين" ورجّعتلو التيليفون بلا ما نكشف أسرارو! 🏅`;
+        if (state.currentEndingType === 'detective') return `لقيت هاتف الباترون إسلام في الحومة 📱🕵️‍♂️ حصلت على لقب "المفتش الفضولي" وفتحت الخطة السرية! 😂 جرب تفتّش فيه أنت تاني!`;
+        return `لقيت هاتف الباترون إسلام في الحومة 📱🤝 حصلت على لقب "راجل فاميليا" ورجّعتلو التيليفون بلا ما نكشف أسرارو! 🏅`;
     }
 
     function copyEndingResult() {
         const txt = buildShareText();
-        
-        // استخدام Clipboard API الحديث مع fallback للطرق القديمة
         if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(txt).then(() => {
-                document.getElementById('copy-success-msg').classList.remove('hidden');
-                showIosToast('📋', 'تم نسخ النتيجة بنجاح.');
-                if(navigator.vibrate) navigator.vibrate(50);
-            }).catch(err => {
-                fallbackCopyTextToClipboard(txt);
-            });
-        } else {
-            fallbackCopyTextToClipboard(txt);
-        }
+            navigator.clipboard.writeText(txt).then(() => { document.getElementById('copy-success-msg').classList.remove('hidden'); showIosToast('📋', 'تم النسخ بنجاح.'); }).catch(() => fallbackCopyTextToClipboard(txt));
+        } else { fallbackCopyTextToClipboard(txt); }
     }
 
     function fallbackCopyTextToClipboard(text) {
-        const area = document.createElement('textarea');
-        area.value = text;
-        area.style.position = 'fixed'; // تجنب التمرير
-        document.body.appendChild(area);
-        area.focus();
-        area.select();
-        try {
-            document.execCommand('copy');
-            document.getElementById('copy-success-msg').classList.remove('hidden');
-            showIosToast('📋', 'تم نسخ النتيجة بنجاح.');
-            if(navigator.vibrate) navigator.vibrate(50);
-        } catch (err) {
-            showIosToast('⚠️', 'تعذر النسخ، يرجى التحديد والنسخ يدوياً.');
-        }
+        const area = document.createElement('textarea'); area.value = text; area.style.position = 'fixed';
+        document.body.appendChild(area); area.focus(); area.select();
+        try { document.execCommand('copy'); document.getElementById('copy-success-msg').classList.remove('hidden'); showIosToast('📋', 'تم النسخ بنجاح.'); }
+        catch (err) { showIosToast('⚠️', 'تعذر النسخ.'); }
         document.body.removeChild(area);
     }
 
     function resetGame() {
-        state.appsOpened.clear();
-        state.photosViewed.clear();
-        state.notesUnlocked = false;
-        state.enteredPin = '';
-        state.repliedTarek = false;
-        state.activePhotoIndex = null;
+        state.appsOpened.clear(); state.photosViewed.clear(); state.notesUnlocked = false; state.enteredPin = '';
         document.getElementById('apps-explored-badge').textContent = '0/5';
-        closeEndingModal();
-        closeCurrentApp();
-        document.getElementById('lock-screen').classList.remove('unlocked');
-        showIosToast('🔄', 'تمت إعادة تشغيل الهاتف.');
-        if(navigator.vibrate) navigator.vibrate(30);
+        closeEndingModal(); closeCurrentApp(); document.getElementById('lock-screen').classList.remove('unlocked');
+        showIosToast('🔄', 'تمت إعادة التشغيل.');
     }
 
-    // ==================== الساعة والتاريخ الديناميكي ====================
+    // ==================== الساعة ====================
     function updateClock() {
         const now = new Date();
-        
-        // تنسيق الوقت 24 ساعة
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const timeStr = `${hours}:${minutes}`;
-        
-        document.getElementById('status-clock').textContent = timeStr;
-        document.getElementById('lock-time').textContent = timeStr;
-
-        // تنسيق التاريخ بالعربية
-        const options = { weekday: 'long', day: 'numeric', month: 'long' };
-        const dateStr = now.toLocaleDateString('ar-DZ', options);
-        document.getElementById('lock-date').textContent = dateStr;
+        const timeStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+        document.getElementById('status-clock').textContent = timeStr; document.getElementById('lock-time').textContent = timeStr;
+        document.getElementById('lock-date').textContent = now.toLocaleDateString('ar-DZ', { weekday: 'long', day: 'numeric', month: 'long' });
     }
 
-    // تشغيل الساعة فوراً وتحديثها كل دقيقة
-    updateClock();
-    setInterval(updateClock, 60000);
-
-    // تحميل الصور المحفوظة مسبقاً عند بدء التشغيل
-    window.addEventListener('DOMContentLoaded', () => {
-        loadSavedPhotosFromDB();
-    });
+    updateClock(); setInterval(updateClock, 60000);
+    window.addEventListener('DOMContentLoaded', loadSavedPhotosFromDB);
 </script>
 </body>
 </html>
